@@ -1,23 +1,14 @@
 import sys
-import socket
 import select
 
+HOST = '127.0.0.1'
+PORT = 8018
+TIMEOUT = 5
+BUF_SIZE = 1024
 
-def chat_client():
-    if (len(sys.argv) < 3):
-        print 'Usage : python chat_client.py hostname port'
-        sys.exit()
 
-    def chat_client():
-        if (len(sys.argv) < 3):
-            print 'Usage : python chat_client.py hostname port'
-            sys.exit()
+class WhatsUpClient():
 
-        host = sys.argv[1]
-        port = int(sys.argv[2])
-
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(2)
-        while 1:
-            socket_list = [sys.stdin, s]
-
+    def __init__(self, host=HOST, port=PORT):
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect((host, port))
