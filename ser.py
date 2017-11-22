@@ -7,8 +7,30 @@ SOCKET_LIST = []
 RECV_BUFFER = 4096
 PORT = 9009
 
+class Serv_chat(Threading.thread):
+    def __init__(self, conn, addr):
+        threading.Thread.__init__(self)
+        self.conn = conn
+        self.addr = addr
+        self.ip = self.addr[0]
+        self.name = ''
 
-def c_server():
+    def join(self):
+
+
+
+
+
+    def leave(self):
+
+
+
+
+
+    def broadcast(self):
+
+
+def main():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((HOST, PORT))
@@ -21,7 +43,7 @@ def c_server():
         while True:
             data = current_connection.recv(2048)
 
-            if data == 'quit\r\n':
+            if data == 'KILL_SERVICE\r\n':
                 current_connection.shutdown(1)
                 current_connection.close()
                 break

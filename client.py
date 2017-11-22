@@ -8,6 +8,9 @@ TIMEOUT = 5
 BUF_SIZE = 1024
 
 
+
+
+
 class Client():
 
     def __init__(self, host=HOST, port=PORT):
