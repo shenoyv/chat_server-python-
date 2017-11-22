@@ -15,6 +15,18 @@ class Serv_chat(Threading.thread):
         self.ip = self.addr[0]
         self.name = ''
 
+    def Chatroom(self, room_name, msg):
+        global rooms
+        # if the group does not exist, create it
+        rooms.setdefault(room_name, set())
+
+        # if current user is a member of the group
+        if (self.conn, self.addr) in rooms[room_name]:
+            self.broadcast(msg, rooms[room_name])
+        else:
+
+               print("You are current not a member of group `%s`"% (room_name,))
+
     def join(self):
 
 
