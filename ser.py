@@ -25,9 +25,13 @@ class Serv_chat(Threading.thread):
             self.broadcast(msg, rooms[room_name])
         else:
 
-               print("You are current not a member of group `%s`"% (room_name,))
+               print("You are currently a member of group `%s`"% (room_name,))
 
-    def join(self):
+    def join(self,room_name):
+        global rooms
+        rooms[group_name].add((self.conn, self.addr))
+        print("## You have joined the group `%s`" %
+                             (group_name,))
 
 
 
