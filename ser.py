@@ -18,7 +18,18 @@ class Server:
                 connections.send(data)
             if not data:
                break
-    
+    def  go(self):
+        while  True:
+           conn,add_rs = self. sock.accept()
+           Thread_s=threading.Thread(target=self.handle_sock, args=(c,a))
+           Thread_s.daemon = True
+           Thread_s.start()
+           self.connections.append(c)
+           print(self.connections)
+
+server = Server()
+server.go()
+
 
 
 
