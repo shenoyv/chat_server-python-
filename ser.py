@@ -10,8 +10,9 @@ class Server:
     def __init__(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # to reuse the same socket
-        self.sock.bind(('0.0.0.0'),8018)
-        self.sock.listen(10)
+        sock.bind(('0.0.0.0'),8018)
+        sock.listen(10)
+        print("server running.....")
         while  True:
            conn,add_rs = self. sock.accept()
            Thread_s=threading.Thread(target=self.handle_sock, args=(conn,add_rs))
