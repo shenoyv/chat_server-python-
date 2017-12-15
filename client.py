@@ -1,38 +1,31 @@
 import sys
 import select
 import socket
-import threading
 
-#HOST = '127.0.0.1'
-#PORT = 8018
-#TIMEOUT = 5
-#BUF_SIZE = 1024
-class Client():
-    def chat(self,sock):
-        while True:
-            sock.send(bytes(inputs(""),'utf-8'))
+HOST = '127.0.0.1'
+PORT = 8888
+BUF_SIZE = 2048
 
-    def __init__(self, add_rs):
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #self.sock.connect((host, port))
-        #print(" connecting to %s:%s " %(host,port))
-        sock.connect ((addr_s,8018))
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        thread_v=Threading.thread(target=self.chat,args=(sock,))
-        thread_v.daemon=True
-        ithread.start()
-
-        while True:
-            data=sock.recieve(1024)
-            if not data:
-                break
-            if data[0:1] == b'\x11':
-                print("got clients")
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print(" connecting to %s:%s " %(HOST,PORT))
+sock.connect ((HOST,PORT))
+print(" connected to %s:%s " %(HOST,PORT))
+while True:
+        sockets_list = [sys.stdin, sock]
+        read_sock, write_sock, error_sock = select.select(sockets_list, [], [])
+        for read in read_sock:
+            if read == sock:
+                message = read.recv(BUF_SIZE).decode()
+                print(message)
             else:
-                print(str(data, 'utf-8'))
-if (len(sys.argv)>1):
-    client=Client(sys.argv[1])
-
-
+                message = sys.stdin.readline()
+                sock.send(message.encode())
+                sys.stdout.write("-->>")
+                sys.stdout.write(message)
+                sys.stdout.flush()
+        if message.lower().strip() == 'exit':
+            break
+print("closing the connection")
+sock.close()
 
 
